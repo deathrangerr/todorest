@@ -8,8 +8,26 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TodorestApplication {
 
-	static final Counter requests = Counter.build()
-     .name("requests_total").help("Total requests.").register();
+
+
+	private final Counter promRequestsTotal = Counter.build()
+	 		.name("requests total")
+			.help("Total Number Of Requests .")
+			.register();
+    
+
+    @RequestMapping(path = "/TodorestApplication")
+    public @ResponseBody String sayTodo() {
+        promRequestsTotal.inc();
+        return "Todo,Rest";
+    }
+			
+    
+    @RequestMapping(path = "/prometheus-metrics")
+    public void metrics(Writer responseWriter) throws IOException {
+        TextFormat.write004(responseWriter, CollectorRegistry.metricFamilySamples());
+        responseWriter.close();
+    }
 
 
 	public static void main(String[] args) {

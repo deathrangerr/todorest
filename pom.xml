@@ -71,11 +71,6 @@
    		    <artifactId>micrometer-spring-legacy</artifactId>
    		    <version>1.0.6</version>
 	    </dependency>
-	    <dependency>
-    	   <groupId>io.micrometer</groupId>
-           <artifactId>micrometer-registry-prometheus</artifactId>
-           <version>1.0.6</version>
-        </dependency>
 	</dependencies>
 
 	<reporting>

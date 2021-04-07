@@ -1,4 +1,4 @@
-//package com.wf.ms.model;
+package com.wf.ms.model;
 
 import java.util.Date;
 

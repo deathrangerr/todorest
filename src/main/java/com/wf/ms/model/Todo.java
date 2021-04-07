@@ -16,12 +16,12 @@ public class Todo {
 
 	@Id
 	@GeneratedValue
-//	private int id;
+	private int id;
 	
 	@NotBlank (message = "user cannot be blank")
 	@NotEmpty (message = "user cannot be empty")
 	@NotNull  (message = "user cannot be Null")
-//	private String user;
+	private String user;
 	
 	@Size(min = 5, max = 50, message = "Description should be b/w 5 to 50 characters")
 	private String des;

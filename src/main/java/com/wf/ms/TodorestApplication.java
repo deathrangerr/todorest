@@ -5,7 +5,7 @@ import io.prometheus.client.Counter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//@SpringBootApplication
+@SpringBootApplication
 public class TodorestApplication {
 
 	static final Counter requests = Counter.build()
@@ -13,7 +13,7 @@ public class TodorestApplication {
 
 
 	public static void main(String[] args) {
-		SpringApplication.run(TodorestApplication.class, args);
+		SpringApplication.run(TodorestApplication.class, arg);
 	}
 
 }

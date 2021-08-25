@@ -1,19 +1,41 @@
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: Deployment
 metadata:
+  labels:
+    app: todorest
   name: todo-deploy
 spec:
   replicas: 2
   selector:
-    app: todo
+    matchLabels:
+      app: todo
   template:
     metadata:
-      name: todo
       labels:
         app: todo
     spec:
       containers:
-      - name: todo-container
-        image: anilbidari/todo:8.0
-        ports:
-        - containerPort: 8080
+        - image: 'anilbidari/todo:8.0'
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 30
+          name: todo-container
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-app-service
+spec:
+  ports:
+    - nodePort: 31001
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: todo
+  type: NodePort

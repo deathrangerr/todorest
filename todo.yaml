@@ -2,42 +2,39 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: todorest
-  name: todo-deploy
+    app: weather-forecast
+  name: webapp
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: todo
+      service: webapp
   template:
     metadata:
       labels:
-        app: todo
+        app: weather-forecast
+        service: webapp
     spec:
       containers:
         - image: 'anilbidari/todo:8.0'
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 15
-            timeoutSeconds: 30
-          name: todo-container
+          imagePullPolicy: IfNotPresent
+          name: webapp
           ports:
             - containerPort: 8080
+              protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: todorest
-    service: 
-  name: todo-deploy
+    app: weather-forecast
+    service: webapp
+  name: webapp
 spec:
   ports:
     - port: 8080
       protocol: TCP
       targetPort: 8080
   selector:
-    service: todorest
+    service: webapp
   type: LoadBalancer

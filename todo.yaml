@@ -29,14 +29,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-app-service
+  labels:
+    app: todorest
+    service: 
+  name: todo-deploy
 spec:
   ports:
-    - nodePort: 31001
-      port: 8080
+    - port: 8080
       protocol: TCP
       targetPort: 8080
   selector:
-    app: todo
-  type: NodePort
-  #triiger commit21111211
+    service: todorest
+  type: LoadBalancer

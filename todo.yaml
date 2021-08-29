@@ -16,7 +16,7 @@ spec:
         service: webapp
     spec:
       containers:
-        - image: 'anilbidari/todo:8.0'
+        - image: 'anilbidari/todo:1.0'
           imagePullPolicy: IfNotPresent
           name: webapp
           ports:

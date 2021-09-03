@@ -42,5 +42,5 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: anil-deployment
+    name: anil-deployment#1
   targetCPUUtilizationPercentage: 50

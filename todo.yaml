@@ -1,40 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: weather-forecast
-  name: webapp
+  name: anil-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      service: webapp
+      app: todo
   template:
     metadata:
       labels:
-        app: weather-forecast
-        service: webapp
+        app: todo
     spec:
       containers:
-        - image: 'anilbidari/todo:3.0'
-          imagePullPolicy: IfNotPresent
-          name: webapp
+        - image: 'anilbidari/todo:latest'
+          name: todo-container
           ports:
             - containerPort: 8080
-              protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: weather-forecast
-    service: webapp
-  name: webapp
+  name: anil-lb
 spec:
   ports:
     - port: 8080
       protocol: TCP
       targetPort: 8080
   selector:
-    service: webapp
-  type: LoadBalancer  #100
+    app: todo
+    version: v3.0.0
+  type: LoadBalancer
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: anil-deployment
+spec:
+  maxReplicas: 10
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: anil-deployment
+  targetCPUUtilizationPercentage: 50

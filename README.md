@@ -3,4 +3,4 @@
 # covid19 is here!!!!
 
 
-# Please use sonarqube 3.8
+- > Please use sonarqube 8.7

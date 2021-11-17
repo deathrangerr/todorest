@@ -1,5 +1,5 @@
 ---
-- hosts: deployment-server
+- hosts: localhost
   become_user: jenkins
   tasks:
 

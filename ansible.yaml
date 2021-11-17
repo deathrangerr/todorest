@@ -6,6 +6,8 @@
   - name: Download jar file
     get_url:
       url: http://192.168.181.242:8081/repository/maven-releases/todorest-0.0.1-SNAPSHOT.jar
+      user: 'admin'
+      password: "root123"
       dest: /home/jenkins
 
   - name: run jar file

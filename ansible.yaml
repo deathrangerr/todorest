@@ -12,5 +12,4 @@
       dest: /home/jenkins
 
   - name: run jar file
-    shell: cd /home/jenkins
-    shell: nohup java -jar todorest-0.0.1-SNAPSHOT.jar /tmp 2>> /dev/null >> /dev/null &
+    shell: nohup java -jar /home/jenkins/todorest-0.0.1-SNAPSHOT.jar /tmp 2>> /dev/null >> /dev/null &

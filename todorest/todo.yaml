@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-  name: todorest
+  name: todo
   namespace: todorest
 spec:
   replicas: 2

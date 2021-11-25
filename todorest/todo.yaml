@@ -1,40 +1,33 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  labels:
-    app: weather-forecast
-  name: webapp
+  name: anil-www
 spec:
-  replicas: 1
+  replicas: 3
   selector:
-    matchLabels:
-      service: webapp
+    app: todo-anil
   template:
     metadata:
       labels:
-        app: weather-forecast
-        service: webapp
+        app: todo-anil
+      name: todo-anil
     spec:
       containers:
-        - image: 'anilbidari/todo:8.0'
-          imagePullPolicy: IfNotPresent
-          name: webapp
+        - image: 'anilbidari/todo:latest'
+          name: todo-container
           ports:
             - containerPort: 8080
-              protocol: TCP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: weather-forecast
-    service: webapp
-  name: webapp
+  name: todo-anil-lb
 spec:
   ports:
     - port: 8080
       protocol: TCP
       targetPort: 8080
   selector:
-    service: webapp
+    app: todo-anil
+    version: v2.0.0
   type: LoadBalancer

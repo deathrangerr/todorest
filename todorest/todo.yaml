@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
-  name: todo
-  namespace: todorest
+metadata:
+  name: web
+  namespace: default
 spec:
-  replicas: 2
   selector:
-    matchlabels:
-      app: todo
+    matchLabels:
+      run: web
   template:
     metadata:
       labels:
-        app: todo
+        run: web
     spec:
       containers:
-        - name: todorest-app
-        - image: anilbidari/todo:latest
-          ports:
-            - name: web
-              containerPort: 8080
-              protocol: TCP
-
-
+      - image: us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
+        imagePullPolicy: IfNotPresent
+        name: web
+        ports:
+        - containerPort: 8080
+          protocol: TCP

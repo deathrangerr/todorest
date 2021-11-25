@@ -1,33 +1,23 @@
-apiVersion: v1
-kind: ReplicationController
-metadata:
-  name: anil-www
+apiVersion: apps/v1
+kind: Deployment
+  name: todorest
+  namespace: todorest
 spec:
-  replicas: 3
+  replicas: 2
   selector:
-    app: todo-anil
+    matchlabels:
+      app: todo-anil
   template:
     metadata:
       labels:
-        app: todo-anil
-      name: todo-anil
+        app: todo
     spec:
       containers:
-        - image: 'anilbidari/todo:latest'
-          name: todo-container
+        - name: todorest-app
+        - image: anilbidari/todo:latest
           ports:
-            - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: todo-anil-lb
-spec:
-  ports:
-    - port: 8080
-      protocol: TCP
-      targetPort: 8080
-  selector:
-    app: todo-anil
-    version: v2.0.0
-  type: LoadBalancer
+            - name: web
+              containerPort: 8080
+              protocol: TCP
+
+

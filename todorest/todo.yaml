@@ -6,7 +6,7 @@ spec:
   replicas: 2
   selector:
     matchlabels:
-      app: todo-anil
+      app: todo
   template:
     metadata:
       labels:

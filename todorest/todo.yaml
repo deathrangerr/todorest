@@ -1,46 +1,20 @@
-apiVersion: apps/v1
-kind: Deployment
+
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: anil-deployment
+  name: todo-deploy
 spec:
   replicas: 2
   selector:
-    matchLabels:
-      app: todo
+    app: todo
   template:
     metadata:
+      name: todo
       labels:
         app: todo
     spec:
       containers:
-        - image: 'anilbidari/todo:latest'
-          name: todo-container
-          ports:
-            - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: anil-lb
-spec:
-  ports:
-    - port: 8080
-      protocol: TCP
-      targetPort: 8080
-  selector:
-    app: todo
-    version: v3.0.0
-  type: LoadBalancer
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: anil-deployment
-spec:
-  maxReplicas: 10
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: anil-deployment#1
-  targetCPUUtilizationPercentage: 50
+      - name: todo-container
+        image: anilbidari/todo:1.0
+        ports:
+        - containerPort: 8080
